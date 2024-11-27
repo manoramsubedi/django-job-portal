@@ -33,9 +33,6 @@ class CandidateApplication(models.Model):
     resume = models.FileField(upload_to='resume')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, default='pending')
 
-    def __str__(self):
-        return self.user
-
 class SelectCandidate(models.Model):
     job =models.ForeignKey(JobPost, on_delete=models.CASCADE)
     candidate = models.OneToOneField(CandidateApplication, on_delete=models.CASCADE)

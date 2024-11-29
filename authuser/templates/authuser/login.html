@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Portal Registration</title>
+  <title>Job Portal Login</title>
   <style>
     body {
   margin: 0;
@@ -15,13 +15,13 @@
   min-height: 100vh;
 }
 
-.register-container {
+.login-container {
   max-width: 400px;
   width: 100%;
   text-align: center;
 }
 
-.register-card {
+.login-card {
   background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
@@ -39,7 +39,7 @@
   font-size: 14px;
 }
 
-.register-form {
+.login-form {
   margin-top: 20px;
 }
 
@@ -51,10 +51,10 @@
   border-radius: 5px;
 }
 
-.register-button {
+.login-button {
   width: 100%;
   padding: 10px;
-  background-color: #28a745;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
   color: white;
@@ -63,11 +63,12 @@
 
 .footer-links {
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .footer-links a {
-  color: #007bff;
+  color: #777777;
+  margin: 0 10px;
   text-decoration: none;
 }
 
@@ -78,29 +79,25 @@
   </style>
 </head>
 <body>
-  <div class="register-container">
-    <div class="register-card">
+  <div class="login-container">
+    <div class="login-card">
       <div class="logo">
         <!-- Replace with your logo -->
         <!-- <img src="logo.png" alt="Job Portal Logo"> -->
         <p>Your Path to Success</p>
       </div>
-      <form class="register-form" method="post" action="">
+      <form class="login-form" method="post" action="">
         {% csrf_token %}
         <input type="text" placeholder="Username" name="username" class="input-field" required>
-        <input type="email" placeholder="Email" name="email" class="input-field" required>
         <input type="password" placeholder="Password" name="password" class="input-field" required>
-        <input type="password" placeholder="Confirm Password" name="cpassword" class="input-field" required>
         {% if msg %}
-          <p style="color:red;">{{msg}}</p>
+        <p style="color: red;">{{msg}}</p>
         {% endif %}
-        <label for="hr-checkbox" >Are you HR?</label>
-        <input type="checkbox" name="ishr" id="hr-checkbox" class="input-field" required>
-
-        <button type="submit" class="register-button">Register</button>
+        <button type="submit" class="login-button">Login</button>
       </form>
       <div class="footer-links">
-        <p>Already have an account? <a href="">Log in</a></p>
+        <a href="{% url 'candidate_register' %}">Sign Up to Apply</a>
+        <a href="{% url 'hr_register' %}">Sign Up as Hr</a>
       </div>
     </div>
   </div>

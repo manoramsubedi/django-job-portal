@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import MyJobList
-from hr.models import JobPost, CandidateApplication
+from hr.models import JobPost, CandidateApplication, Hr
 
 # Create your views here.
 
 @login_required
 def candidate_dashboard(request):
+    if Hr.objects.filter(user=request.user).exists():
+        return redirect('hrdash')
+
     jobs = JobPost.objects.all()
     context = {
         'jobs':jobs,
@@ -16,10 +19,20 @@ def candidate_dashboard(request):
 
 @login_required
 def joblist(request):
-    return render(request, 'candidate/joblist.html')
+    if Hr.objects.filter(user=request.user).exists():
+        return redirect('hrdash')
+
+    joblist = MyJobList.objects.filter(user=request.user)
+    context = {
+        'joblist':joblist
+    }
+    return render(request, 'candidate/joblist.html', context)
 
 @login_required
 def applyforjob(request, pk):
+    if Hr.objects.filter(user=request.user).exists():
+        return redirect('hrdash')
+    
     if JobPost.objects.filter(id=pk).exists():
         job = JobPost.objects.get(id=pk)
         if CandidateApplication.objects.filter(user=request.user, job=job).exists():

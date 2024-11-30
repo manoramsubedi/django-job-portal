@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from hr.models import JobPost, CandidateApplication, SelectCandidate
 
 # Create your views here.
 
+@login_required
 def HrHome(request):
     return render(request, 'hr/hrdashboard.html')
 
+@login_required
 def post_job(request):
     msg = None
     if request.method == 'POST':
@@ -25,7 +28,7 @@ def post_job(request):
     context = {'msg':msg}
     return render(request, 'hr/postjob.html', context)
 
-
+@login_required
 def candidate_detail(request, pk):
     print(pk)
     return render(request, 'hr/candidate.html')

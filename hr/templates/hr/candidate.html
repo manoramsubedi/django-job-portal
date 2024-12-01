@@ -225,6 +225,7 @@
         {% include 'hr/navbar.html' %}
         <div class="content">
             <h2>Candidates Details</h2>
+            {% if application %}
             <table class="candidates-table">
                 <thead>
                     <tr>
@@ -239,12 +240,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for candidate in application %}
+
                     <tr>
-                        <td>manoram</td>
-                        <td>manorarmsubedi7@gmail.com</td>
-                        <td>2023</td>
-                        <td>1</td>
-                        <td><a href="" class="resume-download">Download Resume</a></td>
+                        <td>{{candidate.user.username}}</td>
+                        <td>{{candidate.user.email}}</td>
+                        <td>{{candidate.pass_year}}</td>
+                        <td>{{candidate.experience}}</td>
+                        <td><a href="{{candidate.resume.url}}" class="resume-download">Download Resume</a></td>
                         <td>Pending</td>
                         <td>
                             <form action="" method="post">
@@ -264,14 +267,11 @@
                     </tr>
 
                     <!-- Add more rows for other candidates -->
+                     {% endfor %}
                 </tbody>
             </table>
 
-                <h2>No Application received</h2>
-
-
                 <h2>Selected Candidates Details</h2>
-
                 <table class="candidates-table">
                     <thead>
                         <tr>
@@ -284,30 +284,28 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for sel_candidate in selected %}
 
                         <tr>
-                            <td>manorarmsubedi7</td>
-                            <td>manorarmsubedi7@gmail.com</td>
-                            <td>2023</td>
-                            <td>1</td>
-                            <td><a href="" class="resume-download">Download Resume</a></td>
+                            <td>{{sel_candidate.candidate.user.username}}</td>
+                            <td>{{sel_candidate.candidate.user.email}}</td>
+                            <td>{{sel_candidate.candidate.pass_year}}</td>
+                            <td>{{sel_candidate.candidate.experience}}</td>
+                            <td><a href="{{sel_candidate.candidate.resume.url}}" class="resume-download">Download Resume</a></td>
                             <td>pending</td>
-
-
                         </tr>
+                        {% endfor %}
 
                         <!-- Add more rows for other candidates -->
                     </tbody>
                 </table>
-
-                    <h2>No Application received</h2>
-
-
-
         </div>
 
+            {% else %}
 
+                <h2>No Application received.</h2>
 
+            {% endif %}
     </div>
 </body>
 

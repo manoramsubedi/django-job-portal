@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include('hr.urls')),
     path('', include('authuser.urls')),
     path('', include('candidate.urls')),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

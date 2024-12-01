@@ -5,8 +5,8 @@ from hr.models import CandidateApplication, JobPost
 
 
 class MyJobList(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(CandidateApplication, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.OneToOneField(CandidateApplication, on_delete=models.CASCADE)
     applied_date = models.DateField(auto_now_add=True)
 
 class IsSortList(models.Model):

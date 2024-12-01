@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from hr.models import JobPost, CandidateApplication, SelectCandidate
+from hr.models import JobPost, CandidateApplication, SelectCandidate, Hr
 
 # Create your views here.
 
 @login_required
 def HrHome(request):
-    return render(request, 'hr/hrdashboard.html')
+    if Hr.objects.filter(user=request.user).exists():
+        jobpost = JobPost.objects.filter(user=request.user)
+        context={'jobpost':jobpost}
+        return render(request, 'hr/hrdashboard.html',context)
+    return render('candidate_details')
 
 @login_required
 def post_job(request):
@@ -30,5 +34,13 @@ def post_job(request):
 
 @login_required
 def candidate_detail(request, pk):
-    print(pk)
-    return render(request, 'hr/candidate.html')
+    if JobPost.objects.filter(id=pk).exists():
+        job = JobPost.objects.get(id=pk)
+        application = CandidateApplication.objects.filter(job=job)
+
+        selected = SelectCandidate.objects.filter(job=job)
+        context={'application':application,
+                 'selected':selected,
+                 }
+        return render(request, 'hr/candidate.html', context)
+    return render('hrdash')

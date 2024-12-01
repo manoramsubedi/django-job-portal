@@ -27,7 +27,7 @@ STATUS_CHOICES = {
 
 class CandidateApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.OneToOneField(JobPost, on_delete=models.CASCADE)
+    job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     pass_year = models.IntegerField()
     experience = models.IntegerField(default=0)
     resume = models.FileField(upload_to='resume')

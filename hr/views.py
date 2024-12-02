@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from hr.models import JobPost, CandidateApplication, SelectCandidate, Hr
@@ -41,6 +41,30 @@ def candidate_detail(request, pk):
         selected = SelectCandidate.objects.filter(job=job)
         context={'application':application,
                  'selected':selected,
+                 'job':job,
                  }
         return render(request, 'hr/candidate.html', context)
     return render('hrdash')
+
+def select_candidate(request):
+    if request.method == "POST":
+        # kun cacndidate le kun job lai gareko..
+
+        candidate_id = request.POST.get('candidateid')
+        jobid = request.POST.get('jobpostid')
+        job = JobPost.objects.get(id=jobid)
+        candidate = CandidateApplication.objects.get(id=candidate_id)
+        SelectCandidate(job=job, candidate=candidate).save()
+        #print(candidate, job)
+        #return render()
+
+    return redirect('hrdash')
+
+def reject_candidate(request):
+    if request.method == "POST":
+        candidate_id = request.POST.get('candidateid')
+        # jobid = request.POST.get('jobpostid')
+        # job = JobPost.objects.get(id=jobid)
+        CandidateApplication.objects.get(id=candidate_id).delete()
+
+    return redirect('hrdash')

@@ -250,15 +250,16 @@
                         <td><a href="{{candidate.resume.url}}" class="resume-download">Download Resume</a></td>
                         <td>Pending</td>
                         <td>
-                            <form action="" method="post">
+                            <form action="{% url 'select_candidate' %}" method="post">
                                 {% csrf_token %}
-                                <input type="number" name="candidateid" value="" hidden>
-                                <input type="number" name="jobpostid" value="" hidden>
+                                <input type="number" name="candidateid" value="{{candidate.id}}" hidden>
+                                <input type="number" name="jobpostid" value="{{job.id}}" hidden>
                                 <button class="accept-button" type="submit">Accept</button>
                             </form>
                             <hr>
-                            <form action="" method="post">
+                            <form action="{% url 'reject_candidate' %}" method="post">
                                 {% csrf_token %}
+                                <input type="number" name="candidateid" value="{{candidate.id}}" hidden>
                                 <button class="reject-button">Reject</button>
                             </form>
 

@@ -46,9 +46,9 @@ def applyforjob(request, pk):
             yearOfExperience =request.POST.get('yearOfExperience')
             resume = request.FILES.get('resume')
 
-            candidate_applicaction = CandidateApplication(user=request.user, job=job, pass_year=passing_year, experience=yearOfExperience, resume=resume)
-            candidate_applicaction.save()
-            MyJobList(user=request.user, job=candidate_applicaction).save()
+            candidate_application = CandidateApplication(user=request.user, job=job, pass_year=passing_year, experience=yearOfExperience, resume=resume)
+            candidate_application.save()
+            MyJobList(user=request.user, job=candidate_application).save()
             job.apply_count += 1
             job.save()
             return redirect('candidate_dashboard')

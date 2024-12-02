@@ -30,8 +30,11 @@ class CandidateApplication(models.Model):
     job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     pass_year = models.IntegerField()
     experience = models.IntegerField(default=0)
-    resume = models.FileField(upload_to='resume')
+    resume = models.FileField(upload_to='resume/')
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, default='pending')
+
+    def __str__(self):
+        return f'{self.user} - {self.job}'
 
 class SelectCandidate(models.Model):
     job =models.ForeignKey(JobPost, on_delete=models.CASCADE)
